@@ -4,74 +4,76 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace EpicMMOSystem;
-
-public static partial class MyUI
+namespace EpicMMOSystem
 {
-    private static GameObject UI;
-    private static Localization localization => EpicMMOSystem.localization;
-    public static bool IsPanelVisible()
-    {
-        return UI && UI.activeSelf;
-    }
 
-    public static void Init()
+    public static partial class MyUI
     {
-        UI = EpicMMOSystem.Instantiate(EpicMMOSystem._asset.LoadAsset<GameObject>("LevelHud"));
-        EpicMMOSystem.DontDestroyOnLoad(UI);
-        UI.SetActive(false);
-        InitNavigationPanel();
-        InitLevelSystem();
-        InitFriendsList();
-    }
-
-    public static void Hide()
-    {
-        navigationPanel.SetActive(false);
-        levelSystemPanel.SetActive(false);
-        levelSystemPanel.GetComponent<CanvasGroup>().interactable = true;
-        alertResetPointPanel.SetActive(false);
-        friendsListPanel.SetActive(false);
-        friendsListPanel.GetComponent<CanvasGroup>().interactable = true;
-        alertResetPointPanel.SetActive(false);
-        addFriendAlert.SetActive(false);
-        UI.SetActive(false);
-        LevelSystem.Instance.cancelDepositPoints();
-        DonatShop_API.HidePanel();
-    }
-
-    public static void Show()
-    {
-        ShowNavigationPanel();
-        navigationPanel.SetActive(true);
-        UI.SetActive(true);
-    }
-
-    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
-    public static class ShowPanel_Path
-    {
-        public static void Postfix()
+        private static GameObject UI;
+        private static Localization localization => EpicMMOSystem.localization;
+        public static bool IsPanelVisible()
         {
-            Show();
+            return UI && UI.activeSelf;
         }
-    }
-    
-    [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Hide))]
-    public static class HidePanel_Path
-    {
-        public static void Postfix()
-        {
-            Hide();
-        }
-    }
-    
-    [HarmonyPatch(typeof(Menu), nameof(Menu.IsVisible))]
-    private static class BufferUIFix
-    {
-        private static void Postfix(ref bool __result)
-        {
-            if (textField.isFocused) __result = true;
-        }
-    }
 
+        public static void Init()
+        {
+            UI = EpicMMOSystem.Instantiate(EpicMMOSystem._asset.LoadAsset<GameObject>("LevelHud"));
+            EpicMMOSystem.DontDestroyOnLoad(UI);
+            UI.SetActive(false);
+            InitNavigationPanel();
+            InitLevelSystem();
+            InitFriendsList();
+        }
+
+        public static void Hide()
+        {
+            navigationPanel.SetActive(false);
+            levelSystemPanel.SetActive(false);
+            levelSystemPanel.GetComponent<CanvasGroup>().interactable = true;
+            alertResetPointPanel.SetActive(false);
+            friendsListPanel.SetActive(false);
+            friendsListPanel.GetComponent<CanvasGroup>().interactable = true;
+            alertResetPointPanel.SetActive(false);
+            addFriendAlert.SetActive(false);
+            UI.SetActive(false);
+            LevelSystem.Instance.cancelDepositPoints();
+            DonatShop_API.HidePanel();
+        }
+
+        public static void Show()
+        {
+            ShowNavigationPanel();
+            navigationPanel.SetActive(true);
+            UI.SetActive(true);
+        }
+
+        [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Show))]
+        public static class ShowPanel_Path
+        {
+            public static void Postfix()
+            {
+                Show();
+            }
+        }
+
+        [HarmonyPatch(typeof(InventoryGui), nameof(InventoryGui.Hide))]
+        public static class HidePanel_Path
+        {
+            public static void Postfix()
+            {
+                Hide();
+            }
+        }
+
+        [HarmonyPatch(typeof(Menu), nameof(Menu.IsVisible))]
+        private static class BufferUIFix
+        {
+            private static void Postfix(ref bool __result)
+            {
+                if (textField.isFocused) __result = true;
+            }
+        }
+
+    }
 }

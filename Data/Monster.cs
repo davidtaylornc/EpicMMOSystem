@@ -1,20 +1,21 @@
 using System;
 
-namespace EpicMMOSystem;
-
-[Serializable]
-public struct Monster
+namespace EpicMMOSystem
 {
-    public string name;
-    public int minExp;
-    public int maxExp;
-    public int level;
-    
-    public Monster(string name, int minExp, int maxExp, int level)
+    [Serializable]
+    public struct Monster
     {
-        this.name = name;
-        this.minExp = minExp;
-        this.maxExp = maxExp;
-        this.level = level;
+        public string name;
+        public int minExp;
+        public int maxExp;
+        public int level;
+
+        public Monster(string name, int minExp, int maxExp, int level)
+        {
+            this.name = name;
+            this.minExp = minExp;
+            this.maxExp = maxExp;
+            this.level = level;
+        }
     }
 }

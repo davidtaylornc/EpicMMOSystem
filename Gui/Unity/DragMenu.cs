@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-namespace EpicMMOSystem;
-public class DragMenu : MonoBehaviour, IDragHandler
+namespace EpicMMOSystem
 {
-    public Transform menu;
-
-    public void OnDrag(PointerEventData eventData)
+    public class DragMenu : MonoBehaviour, IDragHandler
     {
-        menu.position += (Vector3)eventData.delta;
+        public Transform menu;
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            menu.position += (Vector3)eventData.delta;
+        }
     }
 }

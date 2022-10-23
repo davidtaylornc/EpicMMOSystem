@@ -1,8 +1,10 @@
-namespace EpicMMOSystem;
-
-public struct MonsterOld
+namespace EpicMMOSystem
 {
-    public string name;
-    public int minExp;
-    public int maxExp;
+
+    public struct MonsterOld
+    {
+        public string name;
+        public int minExp;
+        public int maxExp;
+    }
 }
